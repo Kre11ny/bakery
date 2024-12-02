@@ -1,3 +1,4 @@
+from backed import Backed
 from drink import Drink
 from product import Product
 
@@ -6,18 +7,31 @@ class Menu:
     add_products = []
     total = 0
 
-    def __init__(self, baked: [Product], drinks: [Drink]):
-        self._baked_foods: [Product] = baked
+    def __init__(self, baked: [Backed], drinks: [Drink]):
+        self._baked_foods: [Backed] = baked
         self._drinks: [Drink] = drinks
 
-    def show(self):
-        print('Меню выпечки:')
-        for item in self._baked_foods:
-            print(f'{item}: {item.get_cost()}')
-        print()
-        print('Меню напитков:')
-        for item in self._drinks:
-            print(f"{item}: {item.get_cost()}")
+    def show_backed(self):
+        print('Выпечка:')
+        for i, item in enumerate(self._baked_foods):
+            print(f'[{i}] {item}: {item.get_cost()}')
+
+    def show_drinks(self):
+        print('Напитки:')
+        for i, item in enumerate(self._drinks):
+            print(f'[{i}] {item}: {item.get_cost()}')
+
+    def get_backed_by_index(self, i: int) -> Backed:
+        try:
+            return self._baked_foods[i]
+        except KeyError:
+            print('Такой выпечки в меню нет')
+
+    def get_drink_by_index(self, i: int):
+        try:
+            return self._drinks[i]
+        except KeyError:
+            print('Такого напитка в меню нет')
 
     def order(self):
         while True:

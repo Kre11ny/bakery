@@ -1,10 +1,10 @@
 from bakery import Bakery
-from menu import Menu
+from menu import Menu, MenuStorage
 import time
 from collections import deque
 import random
 import asyncio
-from storage import Storage
+from employee import EmployeeStorage
 
 
 class RunSome:
@@ -73,18 +73,20 @@ async def loading():
 
 
 if __name__ == '__main__':
-    stor = Storage()
+    menu_storage = MenuStorage()
     menu = Menu(
-        stor.get_baked_foods(),
-        stor.get_drinks(),
+        menu_storage.get_baked_foods(),
+        menu_storage.get_drinks(),
     )
-    cashier = stor.get_cahier()
+
+    emp_storage = EmployeeStorage()
+    cashier = emp_storage.get_cahier()
     cashier.take_menu(menu)
 
     rogalik = Bakery(
         cashier,
-        stor.get_baker(),
-        stor.get_manager(),
+        emp_storage.get_baker(),
+        emp_storage.get_manager(),
     )
     rogalik.print_personal()
     rogalik.serve()

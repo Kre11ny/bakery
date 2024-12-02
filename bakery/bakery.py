@@ -13,4 +13,5 @@ class Bakery:
         print(self._manager)
 
     def serve(self):
-        self._cashier.listen_client()
+        client = self._cashier.register_client()
+        self._cashier.accept_order_from_client(client)
